@@ -16,6 +16,17 @@ public class Message {
     private String type;
     private int onlineCount;
 
+    Message() {
+
+    }
+
+    Message(String username, String msg, String type, int onlineCount) {
+        this.username = username;
+        this.msg = msg;
+        this.type = type;
+        this.onlineCount = onlineCount;
+    }
+
     public String getUsername() {
         return username;
     }

@@ -43,11 +43,7 @@ public class WebSocketChatServer {
     @OnOpen
     public void onOpen(Session session, @PathParam("username") String username) {
         onlineSessions.put(username, session);
-        Message message = new Message();
-        message.setUsername(username);
-        message.setMsg( username + " has entered chat room!!");
-        message.setType("ENTER");
-        message.setOnlineCount(onlineSessions.size());
+        Message message = new Message(username, "Joined the chat", "ENTER", onlineSessions.size());
         sendMessageToAll(JSON.toJSONString(message));
     }
 
@@ -69,9 +65,7 @@ public class WebSocketChatServer {
     @OnClose
     public void onClose(Session session) {
         onlineSessions.values().removeIf(value -> value.getId().equals(session.getId()));
-        Message message = new Message();
-        message.setOnlineCount(onlineSessions.size());
-        message.setType("LEAVE");
+        Message message = new Message("","","LEAVE",onlineSessions.size());
         sendMessageToAll(JSON.toJSONString(message));
     }
 
